@@ -1,3 +1,4 @@
+alert("app.js geladen");
 // ===== Online Tasbih – mit eigenen Dhikr =====
 
 const CYCLE = 33;
