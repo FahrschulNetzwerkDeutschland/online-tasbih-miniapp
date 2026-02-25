@@ -291,3 +291,37 @@ body::before{
   from{ transform: translate(0,0) scale(1); opacity:0.9; }
   to{ transform: translate(var(--dx), var(--dy)) scale(0.2); opacity:0; }
 }
+
+.addWrap{
+  padding: 6px 4px 10px;
+}
+
+.addTitle{
+  font-weight: 800;
+  color: var(--muted);
+  margin: 4px 6px 8px;
+}
+
+.addInput{
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  outline: none;
+  direction: rtl;
+  margin-bottom: 8px;
+}
+
+.addBtn{
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.10);
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
+}
+.addBtn:active{ transform: scale(0.99); }
