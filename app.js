@@ -302,3 +302,24 @@ customInput?.addEventListener("keydown", (e)=>{
     render();
   });
 })();
+/* ===== PAGE NAVIGATION ===== */
+
+const navButtons = document.querySelectorAll(".navBtn");
+const pages = document.querySelectorAll(".page");
+
+navButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.dataset.page;
+
+    // Buttons active
+    navButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    // Pages wechseln
+    pages.forEach(page => {
+      page.classList.remove("active");
+    });
+
+    document.getElementById("page-" + target).classList.add("active");
+  });
+});
