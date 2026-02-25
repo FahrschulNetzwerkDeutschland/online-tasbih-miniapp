@@ -332,3 +332,4 @@ navButtons.forEach(btn => {
     document.getElementById("page-" + target).classList.add("active");
   });
 });
+<script src="app.js"></script>
