@@ -1,53 +1,54 @@
 :root{
-  /* Ocean theme */
+  --text:#ecf7ff;
+  --muted:rgba(236,247,255,0.72);
+
+  /* Meer + Licht */
   --ocean-0:#020b14;
   --ocean-1:#041a2c;
   --ocean-2:#063a52;
   --ocean-3:#0a5a73;
 
-  --text:#ecf7ff;
-  --muted:rgba(236,247,255,0.72);
+  /* Perlen + Glow */
+  --pearlHi: rgba(255,255,255,0.98);
+  --pearlMid: rgba(255,255,255,0.40);
+  --pearlLo: rgba(150,170,190,0.18);
 
-  --glass: rgba(255,255,255,0.08);
-  --glass-2: rgba(255,255,255,0.12);
-  --stroke: rgba(255,255,255,0.14);
+  --glowGreen: rgba(53,255,107,0.45);
+  --glowCyan:  rgba(120,220,255,0.45);
 
-  --pearl:#f7fbff;
-  --pearl2:#cfd8e3;
-
-  --gold:#ffd86a;
-  --gold2:#c88b1c;
-
-  --green:#35ff6b;
+  /* Goldstern */
+  --gold1:#ffe08a;
+  --gold2:#f0b12c;
+  --gold3:#b46a12;
 }
 
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
-
 body{
   margin:0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
   overflow:hidden;
 
-  /* Ocean background with depth */
+  /* Meer Hintergrund wie im Logo */
   background:
-    radial-gradient(1200px 900px at 15% 10%, rgba(120,220,255,0.18), rgba(0,0,0,0) 60%),
-    radial-gradient(900px 700px at 80% 25%, rgba(0,255,200,0.10), rgba(0,0,0,0) 60%),
-    radial-gradient(1000px 800px at 50% 95%, rgba(0,120,255,0.14), rgba(0,0,0,0) 60%),
+    radial-gradient(1200px 900px at 20% 15%, rgba(120,220,255,0.22), rgba(0,0,0,0) 60%),
+    radial-gradient(900px 700px at 80% 25%, rgba(0,255,200,0.12), rgba(0,0,0,0) 60%),
+    radial-gradient(1000px 800px at 50% 92%, rgba(0,120,255,0.18), rgba(0,0,0,0) 60%),
     linear-gradient(180deg, var(--ocean-0) 0%, var(--ocean-1) 35%, var(--ocean-2) 70%, var(--ocean-3) 100%);
 }
 
-/* subtle moving shimmer */
+/* “Unterwasser-Schimmer” */
 body::before{
   content:"";
   position:fixed;
-  inset:-20%;
+  inset:-25%;
   background:
     radial-gradient(800px 600px at 30% 40%, rgba(255,255,255,0.08), rgba(255,255,255,0) 60%),
-    radial-gradient(900px 650px at 70% 60%, rgba(255,255,255,0.06), rgba(255,255,255,0) 60%);
-  filter: blur(10px);
-  opacity: 0.6;
+    radial-gradient(900px 650px at 70% 60%, rgba(255,255,255,0.06), rgba(255,255,255,0) 60%),
+    radial-gradient(1100px 800px at 50% 20%, rgba(255,255,255,0.04), rgba(255,255,255,0) 65%);
+  filter: blur(12px);
+  opacity: 0.65;
   animation: drift 12s ease-in-out infinite;
   pointer-events:none;
 }
@@ -68,7 +69,7 @@ body::before{
   gap:14px;
 }
 
-/* Top star pill */
+/* Stern oben links, gold */
 .top{
   width:100%;
   display:flex;
@@ -83,69 +84,72 @@ body::before{
   border-radius:999px;
   background: rgba(255,255,255,0.08);
   border:1px solid rgba(255,255,255,0.14);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   box-shadow:
     0 10px 24px rgba(0,0,0,0.35),
     inset 0 1px 0 rgba(255,255,255,0.18);
 }
 .star{
   font-size:20px;
-  color: var(--gold);
-  text-shadow: 0 0 10px rgba(255,216,106,0.45);
+  color: var(--gold2);
+  text-shadow: 0 0 12px rgba(255,224,138,0.55);
 }
 .starValue{
-  font-weight:800;
+  font-weight:900;
   color: var(--text);
 }
 
-/* Beads ring */
+/* Ring mit 33 Perlen (weiß, 3D) */
 .beads{
   position:relative;
-  width:min(330px, 86vw);
-  height:min(330px, 86vw);
+  width:min(340px, 86vw);
+  height:min(340px, 86vw);
   margin-top:2px;
   filter: drop-shadow(0 16px 30px rgba(0,0,0,0.35));
 }
 .bead{
   position:absolute;
-  width:11px;
-  height:11px;
+  width:14px;
+  height:14px;
   border-radius:50%;
 
-  /* pearl */
+  /* 3D-Perle */
   background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,0.35) 35%, rgba(180,195,210,0.22) 70%, rgba(120,140,160,0.10) 100%);
+    radial-gradient(circle at 30% 30%, var(--pearlHi), var(--pearlMid) 38%, var(--pearlLo) 72%, rgba(0,0,0,0.06) 100%);
   box-shadow:
-    inset 0 1px 2px rgba(255,255,255,0.6),
-    inset 0 -2px 4px rgba(0,0,0,0.22),
-    0 3px 8px rgba(0,0,0,0.28);
-  opacity: 0.55;
+    inset 0 1px 2px rgba(255,255,255,0.65),
+    inset 0 -2px 4px rgba(0,0,0,0.20),
+    0 4px 10px rgba(0,0,0,0.28);
+  opacity: 0.35;
 }
 
+/* leuchtende aktive Perlen */
 .bead.on{
   opacity: 1;
-  /* active pearl glow */
   box-shadow:
-    inset 0 1px 2px rgba(255,255,255,0.72),
+    inset 0 1px 2px rgba(255,255,255,0.70),
     inset 0 -2px 4px rgba(0,0,0,0.22),
-    0 3px 10px rgba(0,0,0,0.30),
-    0 0 14px rgba(53,255,107,0.45),
-    0 0 18px rgba(120,220,255,0.25);
+    0 5px 12px rgba(0,0,0,0.34),
+    0 0 16px var(--glowGreen),
+    0 0 18px var(--glowCyan);
 }
 
-/* Big counter: 3D pearl sphere */
+/* großer 3D-Perlenball in der Mitte */
 .counter{
-  width:min(175px, 48vw);
-  height:min(175px, 48vw);
+  width:min(185px, 50vw);
+  height:min(185px, 50vw);
   border-radius:50%;
   border: 1px solid rgba(255,255,255,0.18);
+
   background:
-    radial-gradient(circle at 30% 25%, rgba(255,255,255,0.92), rgba(255,255,255,0.20) 40%, rgba(10,35,55,0.35) 75%, rgba(0,0,0,0.28) 100%),
-    radial-gradient(circle at 65% 75%, rgba(120,220,255,0.10), rgba(0,0,0,0) 60%);
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,0.92), rgba(255,255,255,0.22) 42%, rgba(10,35,55,0.35) 76%, rgba(0,0,0,0.25) 100%),
+    radial-gradient(circle at 65% 80%, rgba(120,220,255,0.12), rgba(0,0,0,0) 60%);
+
   box-shadow:
-    0 18px 40px rgba(0,0,0,0.45),
+    0 18px 46px rgba(0,0,0,0.48),
     inset 0 2px 8px rgba(255,255,255,0.30),
-    inset 0 -10px 18px rgba(0,0,0,0.28);
+    inset 0 -12px 20px rgba(0,0,0,0.30);
+
   display:grid;
   place-items:center;
   cursor:pointer;
@@ -158,61 +162,60 @@ body::before{
   position:absolute;
   inset: 14%;
   border-radius:50%;
-  background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.35), rgba(255,255,255,0) 55%);
+  background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.35), rgba(255,255,255,0) 58%);
   filter: blur(1px);
   pointer-events:none;
 }
 .counter:active{ transform: scale(0.985); }
 
+/* Zahl eher dunkel wie im Logo, nicht blau */
 .count{
-  font-size:52px;
+  font-size:54px;
   font-weight:900;
   letter-spacing:1px;
-  color: rgba(5,25,38,0.85);
+  color: rgba(8,25,38,0.78);
   text-shadow:
     0 1px 0 rgba(255,255,255,0.45),
-    0 8px 22px rgba(0,0,0,0.25);
+    0 10px 24px rgba(0,0,0,0.20);
 }
 
-/* Dhikr button: pearl capsule */
+/* Dhikr Taste als 3D-Perlen-Kapsel */
 .dhikrBtn{
-  width:min(340px, 90vw);
-  border-radius:16px;
-  padding:14px 16px;
-  font-size:22px;
-  font-weight:800;
-  color: rgba(5,25,38,0.88);
+  width:min(360px, 92vw);
+  border-radius:18px;
+  padding:16px 18px;
+  font-size:24px;
+  font-weight:900;
+  color: rgba(8,25,38,0.80);
   direction: rtl;
 
   border: 1px solid rgba(255,255,255,0.20);
   background:
-    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.95), rgba(255,255,255,0.25) 45%, rgba(10,35,55,0.18) 85%),
-    linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0.10));
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.96), rgba(255,255,255,0.26) 45%, rgba(10,35,55,0.18) 85%),
+    linear-gradient(180deg, rgba(255,255,255,0.40), rgba(255,255,255,0.10));
+
   box-shadow:
-    0 14px 30px rgba(0,0,0,0.40),
-    inset 0 1px 0 rgba(255,255,255,0.55),
-    inset 0 -6px 12px rgba(0,0,0,0.16);
+    0 14px 34px rgba(0,0,0,0.42),
+    inset 0 1px 0 rgba(255,255,255,0.58),
+    inset 0 -7px 14px rgba(0,0,0,0.16);
 
-  cursor:pointer;
+  cursor:default; /* Taste unten soll nicht Menü öffnen */
 }
-.dhikrBtn:active{ transform: scale(0.99); }
 
-/* Menu */
+/* Menü oben rechts */
 .menu{
   position:absolute;
   top:16px;
   right:16px;
 }
-
 .menuBtn{
   padding:10px 12px;
   border-radius:14px;
-  font-weight:800;
+  font-weight:900;
   color: var(--text);
-
   background: rgba(255,255,255,0.10);
   border:1px solid rgba(255,255,255,0.16);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   box-shadow:
     0 10px 24px rgba(0,0,0,0.35),
     inset 0 1px 0 rgba(255,255,255,0.18);
@@ -220,15 +223,15 @@ body::before{
 
 .menuPanel{
   margin-top:10px;
-  width:230px;
-  border-radius:16px;
+  width:240px;
+  border-radius:18px;
   padding:10px;
   display:none;
 
   background: rgba(255,255,255,0.08);
   border:1px solid rgba(255,255,255,0.14);
   backdrop-filter: blur(12px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  box-shadow: 0 18px 46px rgba(0,0,0,0.48);
 }
 .menuPanel.open{ display:block; }
 
@@ -272,7 +275,33 @@ body::before{
   cursor:pointer;
 }
 
-/* Burst effect (glow bubbles) */
+/* Add custom dhikr styles (falls du es hast) */
+.addWrap{ padding: 6px 4px 10px; }
+.addTitle{ font-weight: 900; color: var(--muted); margin: 4px 6px 8px; }
+.addInput{
+  width:100%;
+  padding:10px 10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  outline:none;
+  direction: rtl;
+  margin-bottom:8px;
+}
+.addBtn{
+  width:100%;
+  padding:10px 10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.10);
+  color: var(--text);
+  font-weight: 900;
+  cursor: pointer;
+}
+.addBtn:active{ transform: scale(0.99); }
+
+/* Partikel-Effekt */
 .burst{
   position:absolute;
   inset:0;
@@ -291,37 +320,3 @@ body::before{
   from{ transform: translate(0,0) scale(1); opacity:0.9; }
   to{ transform: translate(var(--dx), var(--dy)) scale(0.2); opacity:0; }
 }
-
-.addWrap{
-  padding: 6px 4px 10px;
-}
-
-.addTitle{
-  font-weight: 800;
-  color: var(--muted);
-  margin: 4px 6px 8px;
-}
-
-.addInput{
-  width: 100%;
-  padding: 10px 10px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.08);
-  color: var(--text);
-  outline: none;
-  direction: rtl;
-  margin-bottom: 8px;
-}
-
-.addBtn{
-  width: 100%;
-  padding: 10px 10px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.10);
-  color: var(--text);
-  font-weight: 800;
-  cursor: pointer;
-}
-.addBtn:active{ transform: scale(0.99); }
