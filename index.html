@@ -1,12 +1,22 @@
-<body>
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>Online Tasbih</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
+<body>
   <div class="app">
 
     <!-- ===== PAGE 1: TASBIH ===== -->
     <div class="page active" id="page-tasbih">
       <div class="screen">
+
         <div class="top">
-          <div class="starWrap">
+          <div class="starWrap" id="starWrap" aria-label="33er Fortschritt">
             <div class="star">★</div>
             <div class="starValue" id="starValue">0</div>
           </div>
@@ -14,13 +24,36 @@
 
         <div class="beads" id="beads"></div>
 
-        <button class="counter" id="counterBtn">
+        <button class="counter" id="counterBtn" aria-label="Zählen">
           <span class="count" id="countValue">0</span>
         </button>
 
-        <button class="dhikrBtn" id="dhikrBtn">
-          سبحان الله
-        </button>
+        <button class="dhikrBtn" id="dhikrBtn">سُبْحَانَ الله</button>
+
+        <div class="menu">
+          <button class="menuBtn" id="menuBtn">Menü</button>
+
+          <div class="menuPanel" id="menuPanel">
+            <div class="menuTitle">Liste</div>
+
+            <div id="dhikrList"></div>
+
+            <div class="menuDivider"></div>
+
+            <div class="addWrap">
+              <div class="addTitle">Eigenes Dhikr</div>
+              <input id="customInput" class="addInput" type="text" placeholder="z.B. أستغفرُ الله" />
+              <button id="addBtn" class="addBtn">Hinzufügen</button>
+              <button id="clearCustomBtn" class="danger" style="margin-top:10px;">Alle eigenen Dhikr löschen</button>
+            </div>
+
+            <div class="menuDivider"></div>
+
+            <button class="danger" id="resetBtn">Reset (aktuelles Dhikr)</button>
+          </div>
+        </div>
+
+        <div class="burst" id="burst"></div>
       </div>
     </div>
 
@@ -29,9 +62,15 @@
       <div class="pageContent">
         <h2>🔥 Daily Events</h2>
         <p>Hier erscheinen tägliche Challenges.</p>
+
         <div class="eventCard">
-          <h3>Heute: 500 SubhanAllah</h3>
+          <h3>Heute: 500 سُبْحَانَ الله</h3>
           <p>Belohnung: +5 Sterne</p>
+        </div>
+
+        <div class="eventCard">
+          <h3>Morgen: 300 الحمد لله</h3>
+          <p>Belohnung: +3 Sterne</p>
         </div>
       </div>
     </div>
@@ -40,38 +79,33 @@
     <div class="page" id="page-community">
       <div class="pageContent">
         <h2>🏆 Community Ranking</h2>
-        <div class="userCard">
-          <span>Ahmad</span>
-          <span>Level 12</span>
-        </div>
-        <div class="userCard">
-          <span>Yusuf</span>
-          <span>Level 9</span>
-        </div>
+
+        <div class="userCard"><span>Ahmad</span><span>Level 12</span></div>
+        <div class="userCard"><span>Yusuf</span><span>Level 9</span></div>
+        <div class="userCard"><span>Fatima</span><span>Level 7</span></div>
       </div>
+    </div>
+
+    <!-- ===== BOTTOM NAVIGATION ===== -->
+    <div class="bottomNav">
+      <button class="navBtn active" data-page="tasbih" type="button">
+        <div class="icon">🫧</div>
+        <div class="label">Tasbih</div>
+      </button>
+
+      <button class="navBtn" data-page="events" type="button">
+        <div class="icon">🔥</div>
+        <div class="label">Events</div>
+      </button>
+
+      <button class="navBtn" data-page="community" type="button">
+        <div class="icon">🏆</div>
+        <div class="label">Community</div>
+      </button>
     </div>
 
   </div>
 
-  <!-- ===== BOTTOM NAVIGATION ===== -->
-  <div class="bottomNav">
-    <button class="navBtn active" data-page="tasbih">
-      <div class="icon">📿</div>
-      <div class="label">Tasbih</div>
-    </button>
-
-    <button class="navBtn" data-page="events">
-      <div class="icon">🔥</div>
-      <div class="label">Events</div>
-    </button>
-
-    <button class="navBtn" data-page="community">
-      <div class="icon">🏆</div>
-      <div class="label">Community</div>
-    </button>
-  </div>
-
   <script src="app.js"></script>
-
 </body>
 </html>
