@@ -3,7 +3,6 @@
 const CYCLE = 33;
 const LS_KEY = "tasbih_miniapp_v2";
 
-// Standard-Dhikr (fix)
 const DEFAULT_DHIKR = [
   { key: "subhanallah",   label: "سبحان الله" },
   { key: "alhamdulillah", label: "الحمدالله" },
@@ -11,19 +10,16 @@ const DEFAULT_DHIKR = [
   { key: "lailaha",       label: "لا اله الا الله" },
 ];
 
-// State
 let currentKey = "subhanallah";
 
-// state.counts[key] = { total, cycles }
 let state = {
   customDhikr: [],   // [{key,label}]
-  counts: {},        // dict
+  counts: {},        // { key: {total, cycles} }
 };
 
-// Telegram
 const tg = window.Telegram?.WebApp;
 
-// UI
+// UI (passt zu deinem HTML)
 const countValue = document.getElementById("countValue");
 const dhikrBtn = document.getElementById("dhikrBtn");
 const counterBtn = document.getElementById("counterBtn");
@@ -56,12 +52,11 @@ function getLabelByKey(key){
 }
 
 function slugKeyFromLabel(label){
-  // sichere key erzeugung
   const base = label
     .trim()
     .toLowerCase()
     .replace(/\s+/g, "_")
-    .replace(/[^\p{L}\p{N}_]+/gu, ""); // unicode letters/numbers
+    .replace(/[^\p{L}\p{N}_]+/gu, "");
   const rand = Math.random().toString(16).slice(2, 6);
   return `c_${base || "dhikr"}_${rand}`;
 }
@@ -88,32 +83,8 @@ function buildBeads(){
   }
 }
 
-// ===== Menü dynamisch rendern =====
-function renderMenuList(){
-  // Wir nutzen die bestehenden 4 Default-Buttons im HTML als "Anker"
-  // und hängen die Custom-Items darunter ein.
-
-  // Alle vorhandenen Items aus dem DOM lesen:
-  const existing = menuPanel.querySelectorAll(".item");
-  // Custom Items entfernen (die mit data-custom="1")
-  menuPanel.querySelectorAll('.item[data-custom="1"]').forEach(el => el.remove());
-
-  // Nach dem letzten Default-Item einfügen:
-  const lastDefault = existing[existing.length - 1];
-
-  state.customDhikr.forEach(d => {
-    const btn = document.createElement("button");
-    btn.className = "item";
-    btn.dataset.key = d.key;
-    btn.dataset.custom = "1";
-    btn.textContent = d.label;
-    lastDefault.insertAdjacentElement("afterend", btn);
-  });
-}
-
 // ===== Speicherung =====
 async function loadState(){
-  // localStorage zuerst
   try{
     const raw = localStorage.getItem(LS_KEY);
     if(raw){
@@ -123,7 +94,6 @@ async function loadState(){
     }
   }catch(e){}
 
-  // Telegram CloudStorage optional
   if(tg?.CloudStorage){
     try{
       const raw = await new Promise((resolve, reject)=>{
@@ -139,7 +109,6 @@ async function loadState(){
     }catch(e){}
   }
 
-  // counts für alle dhikr sicherstellen
   allDhikr().forEach(d => ensureCount(d.key));
   ensureCount(currentKey);
 }
@@ -158,6 +127,25 @@ async function saveState(){
   }
 }
 
+// ===== Custom Items in Menü anzeigen =====
+function renderCustomMenuItems(){
+  // Entferne alte Custom-Buttons
+  menuPanel.querySelectorAll('.item[data-custom="1"]').forEach(el => el.remove());
+
+  // Default-Items im Panel finden
+  const defaultItems = menuPanel.querySelectorAll(".item");
+  const anchor = defaultItems[defaultItems.length - 1]; // nach letztem Default einfügen
+
+  state.customDhikr.forEach(d => {
+    const btn = document.createElement("button");
+    btn.className = "item";
+    btn.dataset.key = d.key;
+    btn.dataset.custom = "1";
+    btn.textContent = d.label;
+    anchor.insertAdjacentElement("afterend", btn);
+  });
+}
+
 // ===== Render =====
 function render(){
   ensureCount(currentKey);
@@ -169,11 +157,11 @@ function render(){
   countValue.textContent = String(total);
   dhikrBtn.textContent = getLabelByKey(currentKey);
 
-  // Stern zeigt Pakete (33er)
+  // Stern = 33er Pakete
   starValue.textContent = String(cycles);
 
   // beads progress
-  const progress = total % CYCLE; // 0..32
+  const progress = total % CYCLE;
   const beads = beadsWrap.querySelectorAll(".bead");
   beads.forEach((b, idx)=>{
     const step = idx+1;
@@ -181,10 +169,10 @@ function render(){
     else b.classList.remove("on");
   });
 
-  renderMenuList();
+  renderCustomMenuItems();
 }
 
-// ===== 33er Effekt =====
+// ===== Effekt =====
 function popEffect(){
   const rect = counterBtn.getBoundingClientRect();
   const cx = rect.left + rect.width/2;
@@ -241,9 +229,10 @@ function addCustomDhikr(){
   const label = (customInput?.value || "").trim();
   if(!label) return;
 
-  // Duplikate vermeiden (gleicher Text)
-  const exists = state.customDhikr.some(d => d.label.trim() === label);
-  if(exists){
+  // Duplikat-Check
+  const existsDefault = DEFAULT_DHIKR.some(d => d.label.trim() === label);
+  const existsCustom  = state.customDhikr.some(d => d.label.trim() === label);
+  if(existsDefault || existsCustom){
     customInput.value = "";
     return;
   }
@@ -252,7 +241,6 @@ function addCustomDhikr(){
   state.customDhikr.push({ key, label });
   ensureCount(key);
 
-  // sofort auswählen
   currentKey = key;
   customInput.value = "";
 
@@ -278,7 +266,6 @@ menuPanel.addEventListener("click", (e)=>{
   const key = btn.dataset.key;
   if(!key) return;
 
-  // existiert?
   const ok = allDhikr().some(d => d.key === key);
   if(!ok) return;
 
