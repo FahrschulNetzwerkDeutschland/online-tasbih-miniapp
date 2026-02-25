@@ -320,3 +320,81 @@ body::before{
   from{ transform: translate(0,0) scale(1); opacity:0.9; }
   to{ transform: translate(var(--dx), var(--dy)) scale(0.2); opacity:0; }
 }
+/* ===== PAGE STRUCTURE ===== */
+
+.app{
+  height:100%;
+  padding-bottom:90px; /* Platz für Bottom Nav */
+}
+
+.page{
+  display:none;
+  height:100%;
+}
+
+.page.active{
+  display:block;
+}
+
+.pageContent{
+  padding:20px;
+}
+
+/* ===== EVENT CARD ===== */
+
+.eventCard{
+  background: rgba(255,255,255,0.08);
+  padding:16px;
+  border-radius:16px;
+  margin-top:16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+}
+
+/* ===== COMMUNITY CARD ===== */
+
+.userCard{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 16px;
+  margin-top:12px;
+  border-radius:14px;
+  background: rgba(255,255,255,0.08);
+}
+
+/* ===== BOTTOM NAV ===== */
+
+.bottomNav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:80px;
+
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+
+  background: rgba(10,20,30,0.85);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.navBtn{
+  background:none;
+  border:none;
+  color:rgba(255,255,255,0.6);
+  font-size:12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  cursor:pointer;
+}
+
+.navBtn .icon{
+  font-size:22px;
+  margin-bottom:4px;
+}
+
+.navBtn.active{
+  color:white;
+}
