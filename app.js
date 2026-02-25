@@ -1,4 +1,12 @@
-alert("app.js geladen");
+(() => {
+  const badge = document.createElement("div");
+  badge.textContent = "JS OK";
+  badge.style.cssText =
+    "position:fixed;top:8px;left:8px;z-index:99999;padding:6px 10px;" +
+    "border-radius:999px;background:rgba(0,0,0,.55);color:#00ff9a;" +
+    "font:700 12px/1 system-ui;backdrop-filter:blur(6px)";
+  document.addEventListener("DOMContentLoaded", () => document.body.appendChild(badge));
+})();
 // ===== Online Tasbih – mit eigenen Dhikr =====
 
 const CYCLE = 33;
